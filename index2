@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8cf">
+  <title>A little adventure for Tomi</title>
+  <style>
+    :root { color-scheme: light; --ink:#493342; --pink:#f5a8c5; --rose:#c84f83; --yellow:#ffe783; --cream:#fffbea; }
+    * { box-sizing:border-box }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif; background:radial-gradient(ellipse at 12% 8%,#ffe0ed 0,transparent 35%),radial-gradient(ellipse at 90% 92%,#fff0a9 0,transparent 40%),linear-gradient(145deg,#fffbea,#fff1f7); }
+    main { position:relative; overflow:hidden; width:min(100%,560px); padding:clamp(26px,7vw,48px); text-align:center; background:rgba(255,255,255,.9); border:2px solid #ffe783; border-radius:30px; box-shadow:0 18px 55px #9f52751c; }
+    .eyebrow { color:var(--rose); text-transform:uppercase; letter-spacing:.16em; font-size:.76rem; font-weight:750 }
+    h1 { margin:10px 0 12px; font-family:Georgia,serif; font-size:clamp(2.4rem,9vw,3.7rem); line-height:1.05 }
+    .intro { margin:0 auto 18px; max-width:410px; color:#705968; font-size:1.08rem }
+    .details { margin:22px 0; padding:20px 22px; border:1px solid #f4d96d; border-radius:20px; background:linear-gradient(135deg,#fffbea,#fff4f8); text-align:left; }
+    .details p { display:grid; grid-template-columns:86px minmax(0,1fr); gap:14px; align-items:start; margin:0; padding:10px 0; }
+    .details p + p { border-top:1px solid #f2e5cf }
+    .details strong { color:var(--rose); font-size:.9rem; letter-spacing:.01em }
+    .details span { line-height:1.5 }
+    .ask { margin:24px 0 16px; font-family:Georgia,serif; font-size:clamp(1.35rem,5vw,1.7rem) }
+    .ask small { display:block; margin-top:5px; font:italic 0.7em/1.4 system-ui,-apple-system,Segoe UI,sans-serif; color:#806776 }
+    .buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:12px }
+    button { border:0; border-radius:999px; padding:13px 22px; font:700 1rem system-ui; cursor:pointer; transition:transform .15s,filter .15s }
+    button:hover { transform:translateY(-2px); filter:brightness(.98) }
+    .yes { color:#fff; background:var(--rose); box-shadow:0 4px 0 #a83c6b }
+    .no { color:#704353; background:var(--yellow); box-shadow:0 4px 0 #e9ca58 }
+    #reply { min-height:1.6em; margin:18px 0 0; color:var(--rose); font-weight:700 }
+    .small { margin:16px 0 0; color:#8b7780; font-size:.85rem }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">A tiny question for you</div>
+    <h1>Hey, Tomi 💌</h1>
+    <p class="intro">I was wondering if your funky self wants to go on a little outing with me.</p>
+
+    <section class="details" aria-label="Date details">
+      <p><strong>When</strong><span>November 13</span></p>
+      <p><strong>Time</strong><span>I'll come pick you up around 2 PM or so. It can't be too late because Mommy wouldn't like that.</span></p>
+      <p><strong>Where</strong><span>Uhhh, in Dreamland Funky.</span></p>
+      <p><strong>The plan</strong><span>Check IG after this to see the food spot. For the activity, you'll find out.</span></p>
+      <p><strong>Dress</strong><span>Whatever feels comfy. I'm wearing black if you want to match.</span></p>
+    </section>
+
+    <div class="ask">So, are you down to go on a little adventure?<small>(on sum Dora the Explorer shi)</small></div>
+    <div class="buttons">
+      <button class="yes" type="button" onclick="reply('yes')">Yes, let’s go 💖</button>
+      <button class="no" type="button" onclick="reply('no')">No thanks</button>
+    </div>
+    <p id="reply" aria-live="polite"></p>
+    <p class="small">No pressure either way — just wanted to ask ☺️</p>
+  </main>
+  <audio id="yes-audio" src="yes.m4a" preload="auto"></audio>
+  <audio id="no-audio" src="no.m4a" preload="none"></audio>
+  <script>
+    function reply(answer) {
+      document.querySelector('#reply').textContent = answer === 'yes'
+        ? 'YAY! I can’t wait 🥰 Text me and we’ll lock it in!'
+        : 'All good — thanks for being honest 💛';
+      const audio = document.querySelector(answer === 'yes' ? '#yes-audio' : '#no-audio');
+      const otherAudio = document.querySelector(answer === 'yes' ? '#no-audio' : '#yes-audio');
+      otherAudio.pause();
+      otherAudio.currentTime = 0;
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    }
+  </script>
+</body>
+</html>
